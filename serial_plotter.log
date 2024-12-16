@@ -12,3 +12,87 @@
 2024-12-16 13:54:18,475 - INFO - Application exited.
 2024-12-16 13:54:18,490 - INFO - Reading stopped by user.
 2024-12-16 13:54:18,491 - INFO - Application exited.
+2024-12-16 13:58:40,951 - INFO - Application started.
+2024-12-16 13:58:40,952 - INFO - Detecting available serial ports.
+2024-12-16 13:58:46,054 - INFO - Serial port selected: COM7
+2024-12-16 13:58:48,070 - INFO - Starting data reading on COM7 at 9600 baud.
+2024-12-16 13:58:48,074 - INFO - Connected to COM7 at 9600 baud.
+2024-12-16 13:59:42,926 - INFO - Detecting available serial ports.
+2024-12-16 13:59:42,936 - INFO - Available ports detected: ['COM7', 'COM8', 'COM9', 'COM10', 'COM11', 'COM12', 'COM13', 'COM14', 'COM15', 'COM16', 'COM17', 'COM1', 'COM2']
+2024-12-16 13:59:49,175 - INFO - Disconnected from COM7.
+2024-12-16 13:59:49,175 - INFO - Connection to COM7 closed.
+2024-12-16 13:59:49,176 - ERROR - Failed to connect after multiple retries.
+2024-12-16 13:59:49,176 - INFO - Reading stopped by user.
+2024-12-16 14:00:00,423 - INFO - Reading stopped by user.
+2024-12-16 14:00:00,424 - INFO - Application exited.
+2024-12-16 14:00:00,440 - INFO - Reading stopped by user.
+2024-12-16 14:00:00,441 - INFO - Application exited.
+2024-12-16 14:00:06,384 - INFO - Application started.
+2024-12-16 14:00:06,385 - INFO - Detecting available serial ports.
+2024-12-16 14:00:19,329 - INFO - Serial port selected: COM8
+2024-12-16 14:00:28,831 - INFO - Starting data reading on COM8 at 9600 baud.
+2024-12-16 14:00:28,832 - ERROR - Serial connection error: could not open port 'COM8': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2). Retries left: 2
+2024-12-16 14:00:30,834 - ERROR - Serial connection error: could not open port 'COM8': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2). Retries left: 1
+2024-12-16 14:00:32,836 - ERROR - Serial connection error: could not open port 'COM8': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2). Retries left: 0
+2024-12-16 14:00:34,217 - INFO - Detecting available serial ports.
+2024-12-16 14:00:34,230 - INFO - Available ports detected: ['COM8', 'COM9', 'COM10', 'COM11', 'COM12', 'COM13', 'COM14', 'COM15', 'COM16', 'COM17', 'COM1', 'COM2']
+2024-12-16 14:00:34,837 - ERROR - Failed to connect after multiple retries.
+2024-12-16 14:01:03,493 - INFO - Detecting available serial ports.
+2024-12-16 14:01:03,506 - INFO - Available ports detected: ['COM7', 'COM8', 'COM9', 'COM10', 'COM11', 'COM12', 'COM13', 'COM14', 'COM15', 'COM16', 'COM17', 'COM1', 'COM2']
+2024-12-16 14:01:06,154 - INFO - Starting data reading on COM8 at 9600 baud.
+2024-12-16 14:01:06,155 - ERROR - Serial connection error: could not open port 'COM8': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2). Retries left: 2
+2024-12-16 14:01:08,157 - ERROR - Serial connection error: could not open port 'COM8': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2). Retries left: 1
+2024-12-16 14:01:10,159 - ERROR - Serial connection error: could not open port 'COM8': FileNotFoundError(2, 'The system cannot find the file specified.', None, 2). Retries left: 0
+2024-12-16 14:01:12,160 - ERROR - Failed to connect after multiple retries.
+2024-12-16 14:01:15,638 - INFO - Application started.
+2024-12-16 14:01:15,639 - INFO - Detecting available serial ports.
+2024-12-16 14:07:48,192 - INFO - Application started.
+2024-12-16 14:07:48,193 - INFO - Detecting available serial ports.
+2024-12-16 14:07:55,595 - INFO - Serial port selected: COM7
+2024-12-16 14:07:58,295 - INFO - Starting data reading on COM7 at 9600 baud.
+2024-12-16 14:07:58,298 - INFO - Connected to COM7 at 9600 baud.
+2024-12-16 14:08:28,280 - INFO - Connection to COM7 closed.
+2024-12-16 14:10:07,031 - INFO - Application started.
+2024-12-16 14:10:07,032 - INFO - Detecting available serial ports.
+2024-12-16 14:10:10,878 - WARNING - Status label item not found.
+2024-12-16 14:10:10,921 - INFO - Reading stopped by user.
+2024-12-16 14:10:10,926 - INFO - Application exited.
+2024-12-16 14:10:20,695 - INFO - Application started.
+2024-12-16 14:10:20,696 - INFO - Detecting available serial ports.
+2024-12-16 14:10:23,833 - INFO - Serial port selected: COM7
+2024-12-16 14:10:25,233 - INFO - Starting data reading on COM7 at 9600 baud.
+2024-12-16 14:10:25,237 - INFO - Connected to COM7 at 9600 baud.
+2024-12-16 14:10:33,114 - INFO - Connection to COM7 closed.
+2024-12-16 14:10:33,115 - INFO - Disconnected from COM7.
+2024-12-16 14:10:33,115 - INFO - Reading stopped by user.
+2024-12-16 14:10:33,116 - ERROR - Failed to connect after multiple retries.
+2024-12-16 14:10:33,116 - INFO - Application exited.
+2024-12-16 14:10:33,131 - INFO - Reading stopped by user.
+2024-12-16 14:10:33,134 - INFO - Application exited.
+2024-12-16 14:12:52,959 - INFO - Application started.
+2024-12-16 14:12:52,960 - INFO - Detecting available serial ports.
+2024-12-16 14:12:55,936 - INFO - Serial port selected: COM7
+2024-12-16 14:12:57,953 - INFO - Starting data reading on COM7 at 9600 baud.
+2024-12-16 14:12:57,957 - INFO - Connected to COM7 at 9600 baud.
+2024-12-16 14:13:33,206 - INFO - Application started.
+2024-12-16 14:13:33,207 - INFO - Detecting available serial ports.
+2024-12-16 14:13:35,695 - INFO - Serial port selected: COM7
+2024-12-16 14:13:37,128 - INFO - Starting data reading on COM7 at 9600 baud.
+2024-12-16 14:13:37,132 - INFO - Connected to COM7 at 9600 baud.
+2024-12-16 14:13:37,132 - ERROR - Invalid data received: 
+2024-12-16 14:13:57,558 - INFO - Connection to COM7 closed.
+2024-12-16 14:13:57,565 - WARNING - Status label item not found.
+2024-12-16 14:13:57,566 - INFO - Reading stopped by user.
+2024-12-16 14:13:57,567 - INFO - Application exited.
+2024-12-16 14:14:02,732 - INFO - Application started.
+2024-12-16 14:14:02,733 - INFO - Detecting available serial ports.
+2024-12-16 14:14:05,506 - INFO - Serial port selected: COM7
+2024-12-16 14:14:07,473 - INFO - Starting data reading on COM7 at 9600 baud.
+2024-12-16 14:14:07,476 - INFO - Connected to COM7 at 9600 baud.
+2024-12-16 14:14:16,720 - INFO - Disconnected from COM7.
+2024-12-16 14:14:16,721 - INFO - Connection to COM7 closed.
+2024-12-16 14:14:16,728 - WARNING - Status label item not found.
+2024-12-16 14:14:16,729 - WARNING - Status label item not found.
+2024-12-16 14:14:16,729 - ERROR - Failed to connect after multiple retries.
+2024-12-16 14:14:16,732 - INFO - Reading stopped by user.
+2024-12-16 14:14:16,733 - INFO - Application exited.

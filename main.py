@@ -1,10 +1,10 @@
-import serial
 import time
-import dearpygui.dearpygui as dpg
 import threading
-from serial.tools import list_ports
 import logging
 from logging.handlers import RotatingFileHandler
+import serial
+from serial.tools import list_ports
+import dearpygui.dearpygui as dpg
 
 # Configure logging
 log_formatter = logging.Formatter("%(asctime)s - %(levelname)s - %(message)s")
@@ -22,13 +22,13 @@ console_handler.setFormatter(log_formatter)
 logger.addHandler(console_handler)
 
 # Global variables
-selected_port = None  # Stores the user-selected serial port
-selected_baud_rate = 9600  # Default baud rate
-latest_value = 0
-plot_data = []  # Stores data for plotting
-max_points = 100  # Maximum points to display on the graph
-stop_thread = False  # Flag to stop the reading thread
-serial_connection = None  # Global variable to store the serial connection
+SELECTED_PORT = None  # Stores the user-selected serial port
+SELECTED_BAUD_RATE = 9600  # Default baud rate
+LATEST_VALUE = 0
+PLOT_DATA = []  # Stores data for plotting
+MAX_POINTS = 100  # Maximum points to display on the graph
+STOP_THREAD = False  # Flag to stop the reading thread
+SERIAL_CONNECTION = None  # Global variable to store the serial connection
 
 
 def detect_serial_ports():
@@ -54,103 +54,106 @@ def refresh_ports():
 
 def update_status(status, color):
     """Update the status text and color."""
-    dpg.set_value("status_label", status)
-    dpg.configure_item("status_label", color=color)
+    if dpg.does_item_exist("status_label"):
+        dpg.set_value("status_label", status)
+        dpg.configure_item("status_label", color=color)
+    else:
+        logger.warning("Status label item not found.")
 
 
 def start_reading_data():
     """Start the thread for reading data from the selected port."""
-    global stop_thread, selected_port, serial_connection
+    global STOP_THREAD, SELECTED_PORT, SERIAL_CONNECTION
 
-    if not selected_port or selected_port == "No ports available":
+    if not SELECTED_PORT or SELECTED_PORT == "No ports available":
         update_status("No valid serial port selected!", (255, 0, 0))  # Red
         logger.warning("Start reading failed: No valid serial port selected.")
         return
 
-    update_status(f"Connecting to {selected_port} at {selected_baud_rate} baud...", (255, 255, 0))  # Yellow
-    logger.info(f"Starting data reading on {selected_port} at {selected_baud_rate} baud.")
-    stop_thread = False
+    update_status(f"Connecting to {SELECTED_PORT} at {SELECTED_BAUD_RATE} baud...", (255, 255, 0))  # Yellow
+    logger.info("Starting data reading on %s at %d baud.", SELECTED_PORT, SELECTED_BAUD_RATE)
+    STOP_THREAD = False
     threading.Thread(target=read_from_arduino, daemon=True).start()
 
 
 def stop_reading_data():
     """Stop the reading thread."""
-    global stop_thread, serial_connection
-    stop_thread = True
-    if serial_connection:
-        serial_connection.close()
-        serial_connection = None
-        logger.info(f"Connection to {selected_port} closed.")
+    global STOP_THREAD, SERIAL_CONNECTION
+    STOP_THREAD = True
+    if SERIAL_CONNECTION:
+        SERIAL_CONNECTION.close()
+        SERIAL_CONNECTION = None
+        logger.info("Connection to %s closed.", SELECTED_PORT)
     update_status("Disconnected", (255, 0, 0))  # Red
     logger.info("Reading stopped by user.")
 
 
 def read_from_arduino():
     """Read data from the selected serial port and update the GUI."""
-    global latest_value, plot_data, stop_thread, serial_connection
+    global LATEST_VALUE, PLOT_DATA, STOP_THREAD, SERIAL_CONNECTION
     retries = 3  # Number of retries for reconnection
-    while retries > 0 and not stop_thread:
+    while retries > 0 and not STOP_THREAD:
         try:
-            serial_connection = serial.Serial(selected_port, selected_baud_rate, timeout=1)
-            update_status(f"Connected to {selected_port} at {selected_baud_rate} baud.", (0, 255, 0))  # Green
-            logger.info(f"Connected to {selected_port} at {selected_baud_rate} baud.")
+            SERIAL_CONNECTION = serial.Serial(SELECTED_PORT, SELECTED_BAUD_RATE, timeout=1)
+            update_status(f"Connected to {SELECTED_PORT} at {SELECTED_BAUD_RATE} baud.", (0, 255, 0))  # Green
+            logger.info("Connected to %s at %d baud.", SELECTED_PORT, SELECTED_BAUD_RATE)
             time.sleep(2)  # Allow the serial connection to initialize
 
-            while not stop_thread:
-                if serial_connection.in_waiting > 0:  # Check if data is available
-                    line = serial_connection.readline().decode('utf-8').strip()
+            while not STOP_THREAD:
+                if SERIAL_CONNECTION.in_waiting > 0:  # Check if data is available
+                    line = SERIAL_CONNECTION.readline().decode('utf-8').strip()
                     try:
                         # Convert the received data to a float
-                        latest_value = float(line)
+                        LATEST_VALUE = float(line)
 
                         # Update the progress bar and label
-                        dpg.set_value("gauge_value", latest_value / 100.0)  # Normalize 0-100 to 0.0-1.0
-                        dpg.set_value("gauge_label", f"Value: {latest_value}")
+                        dpg.set_value("gauge_value", LATEST_VALUE / 100.0)  # Normalize 0-100 to 0.0-1.0
+                        dpg.set_value("gauge_label", f"Value: {LATEST_VALUE}")
 
                         # Add the latest value to plot data
-                        plot_data.append(float(latest_value))  # Ensure the value is a float
-                        if len(plot_data) > max_points:  # Maintain a fixed number of points
-                            plot_data.pop(0)
+                        PLOT_DATA.append(float(LATEST_VALUE))  # Ensure the value is a float
+                        if len(PLOT_DATA) > MAX_POINTS:  # Maintain a fixed number of points
+                            PLOT_DATA.pop(0)
 
                         # Prepare X and Y data
-                        x_data = list(range(len(plot_data)))  # X values are indices of data points
-                        y_data = plot_data  # Y values are the data points
+                        x_data = list(range(len(PLOT_DATA)))  # X values are indices of data points
+                        y_data = PLOT_DATA  # Y values are the data points
 
                         # Update the graph with a tuple (X, Y)
                         dpg.set_value("line_series", (x_data, y_data))
                     except ValueError:
-                        logger.error(f"Invalid data received from {selected_port}: {line}")
+                        logger.error("Invalid data received from %s: %s", SELECTED_PORT, line)
 
         except serial.SerialException as e:
             retries -= 1
-            logger.error(f"Serial connection error: {e}. Retries left: {retries}")
+            logger.error("Serial connection error: %s. Retries left: %d", e, retries)
             update_status(f"Connection error: {e}. Retrying ({retries})...", (255, 255, 0))  # Yellow
             time.sleep(2)  # Wait before retrying
         finally:
-            if serial_connection:
-                serial_connection.close()
-                serial_connection = None
-                logger.info(f"Disconnected from {selected_port}.")
+            if SERIAL_CONNECTION:
+                SERIAL_CONNECTION.close()
+                SERIAL_CONNECTION = None
+                logger.info("Disconnected from %s.", SELECTED_PORT)
 
-    if retries == 0 or stop_thread:
+    if retries == 0 or STOP_THREAD:
         update_status("Failed to connect. Please check the port and try again.", (255, 0, 0))  # Red
         logger.error("Failed to connect after multiple retries.")
 
 
 def on_port_selected(sender, app_data):
     """Callback for selecting a serial port."""
-    global selected_port
-    selected_port = app_data
-    logger.info(f"Serial port selected: {selected_port}")
-    update_status(f"Selected Port: {selected_port}", (255, 255, 0))  # Yellow
+    global SELECTED_PORT
+    SELECTED_PORT = app_data
+    logger.info("Serial port selected: %s", SELECTED_PORT)
+    update_status(f"Selected Port: {SELECTED_PORT}", (255, 255, 0))  # Yellow
 
 
 def on_baud_rate_selected(sender, app_data):
     """Callback for selecting a baud rate."""
-    global selected_baud_rate
-    selected_baud_rate = int(app_data)
-    logger.info(f"Baud rate selected: {selected_baud_rate}")
-    update_status(f"Baud Rate Selected: {selected_baud_rate}", (255, 255, 0))  # Yellow
+    global SELECTED_BAUD_RATE
+    SELECTED_BAUD_RATE = int(app_data)
+    logger.info("Baud rate selected: %d", SELECTED_BAUD_RATE)
+    update_status(f"Baud Rate Selected: {SELECTED_BAUD_RATE}", (255, 255, 0))  # Yellow
 
 
 def exit_application():
@@ -193,7 +196,6 @@ def start_gui():
 
         # Add the plot for serial data
         with dpg.plot(label="Serial Plotter", height=300, width=500):
-            x_axis = dpg.add_plot_axis(dpg.mvXAxis, label="Time")
             y_axis = dpg.add_plot_axis(dpg.mvYAxis, label="Value")
             dpg.add_line_series([], [], parent=y_axis, label="Data", tag="line_series")
 
