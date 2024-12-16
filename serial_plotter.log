@@ -1,0 +1,14 @@
+2024-12-16 13:54:03,567 - INFO - Application started.
+2024-12-16 13:54:03,569 - INFO - Detecting available serial ports.
+2024-12-16 13:54:09,476 - INFO - Serial port selected: COM7
+2024-12-16 13:54:11,225 - INFO - Starting data reading on COM7 at 9600 baud.
+2024-12-16 13:54:11,229 - INFO - Connected to COM7 at 9600 baud.
+2024-12-16 13:54:13,231 - ERROR - Invalid data received from COM7: 
+2024-12-16 13:54:13,235 - ERROR - Invalid data received from COM7: 
+2024-12-16 13:54:18,474 - INFO - Connection to COM7 closed.
+2024-12-16 13:54:18,474 - INFO - Disconnected from COM7.
+2024-12-16 13:54:18,474 - INFO - Reading stopped by user.
+2024-12-16 13:54:18,475 - ERROR - Failed to connect after multiple retries.
+2024-12-16 13:54:18,475 - INFO - Application exited.
+2024-12-16 13:54:18,490 - INFO - Reading stopped by user.
+2024-12-16 13:54:18,491 - INFO - Application exited.
